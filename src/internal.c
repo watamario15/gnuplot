@@ -92,6 +92,7 @@ eval_reset_after_error()
     reset_stack();
     recursion_depth = 0;
     undefined = FALSE;
+    eval_fail_soft = FALSE;
 }
 
 void
@@ -101,8 +102,10 @@ f_push(union argument *x)
 
     udv = x->udv_arg;
     if (udv->udv_value.type == NOTDEFINED) {
-	if (string_result_only)
-	/* We're only here to check whether this is a string. It isn't. */
+	if (string_result_only || eval_fail_soft)
+	/* Either we're only here to check whether this is a string (it isn't)
+	 * or the caller prefers receiving NaN to a fatal error.
+	 */
 	    udv = udv_NaN;
 	else
 	    int_error(NO_CARET, "undefined variable: %s", udv->udv_name);
@@ -167,8 +170,10 @@ f_call(union argument *x)
 
     udf = x->udf_arg;
     if (!udf->at) {
-	if (string_result_only) {
-	    /* We're only here to check whether this is a string. It isn't. */
+	if (string_result_only || eval_fail_soft) {
+	    /* Either we're only here to check whether this is a string (it isn't)
+	     * or the caller prefers receiving NaN to a fatal error.
+	     */
 	    f_pop(x);
 	    push(&(udv_NaN->udv_value));
 	    return;
