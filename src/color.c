@@ -674,24 +674,9 @@ cbtick_callback(
 	term_apply_lp_properties(&border_lp);	/* border linetype */
     }
 
-    if (len != 0) {
-	/* draw tic */
-	(*term->move) (x1, y1);
-	(*term->vector) (x2, y2);
-
-	/* draw mirrored tic */
-	if (this_axis->ticmode & TICS_MIRROR) {
-	    if (color_box.rotation == 'h') {
-		y1 = color_box.bounds.ytop;
-		y2 = color_box.bounds.ytop + len;
-	    } else {
-		x1 = color_box.bounds.xleft;
-		x2 = color_box.bounds.xleft - len;
-	    }
-	    (*term->move) (x1, y1);
-	    (*term->vector) (x2, y2);
-	}
-    }
+    /* draw tic */
+    (*term->move) (x1, y1);
+    (*term->vector) (x2, y2);
 
     /* draw label */
     if (text) {
@@ -746,6 +731,18 @@ cbtick_callback(
 	term_apply_lp_properties(&border_lp);	/* border linetype */
     }
 
+    /* draw tic on the mirror side */
+    if (this_axis->ticmode & TICS_MIRROR) {
+	if (color_box.rotation == 'h') {
+	    y1 = color_box.bounds.ytop;
+	    y2 = color_box.bounds.ytop + len;
+	} else {
+	    x1 = color_box.bounds.xleft;
+	    x2 = color_box.bounds.xleft - len;
+	}
+	(*term->move) (x1, y1);
+	(*term->vector) (x2, y2);
+    }
 }
 
 /*
