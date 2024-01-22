@@ -42,7 +42,7 @@ VARIANT = PLAIN
 # Comment out the definition lines to disable the according features:
 
 # Define this only if doing a release build
-#RELEASE=1
+RELEASE=1
 
 # Set-up your compiler environment
 #
