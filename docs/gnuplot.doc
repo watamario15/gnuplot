@@ -628,6 +628,12 @@ D epi_data 1
        use "set linetype" to redefine a convenient range of linetypes
 
  Deprecated in version 5.0, removed in 6.0
+       set clabel
+ Current equivalent
+       `set clabel "format"` is replaced by `set cntrlabel format "format"`.
+       `unset clabel` is replaced by `set cntrlabel onecolor`.
+
+ Deprecated in version 5.0, removed in 6.0
        show palette fit2rgbformulae
 
 2 Demos and Online Examples
