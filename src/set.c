@@ -3608,19 +3608,16 @@ set_colorbox()
 		continue;
 	    /* border of the color box */
 	    case S_COLORBOX_BORDER: /* "bo$rder" */
-
 		color_box.border = 1;
 		c_token++;
-
-		if (!END_OF_COMMAND) {
-		    /* expecting a border line type */
+		if (END_OF_COMMAND)
+		    color_box.border_lt_tag = -1;
+		if (equals(c_token,"-") || isanumber(c_token)) {
 		    color_box.border_lt_tag = int_expression();
-		    if (color_box.border_lt_tag <= 0) {
-			color_box.border_lt_tag = 0;
-			int_error(c_token, "tag must be strictly positive (see `help set style line')");
-		    }
-		    --c_token;
+		    if (color_box.border_lt_tag <= 0)
+			color_box.border_lt_tag = -1;
 		}
+		c_token--;
 		continue;
 	    case S_COLORBOX_BDEFAULT: /* "bd$efault" */
 		color_box.border_lt_tag = -1; /* use default border */
