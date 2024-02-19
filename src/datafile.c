@@ -1363,6 +1363,14 @@ df_open(const char *cmd_filename, int max_using, struct curve_points *plot)
 	int_error(c_token,
 		  "duplicated or contradicting arguments in datafile options");
 
+    /*	The image reading code overwrites the 'using' columns.  For example,
+     *	"binary filetype=png using 4" becomes "using (generated x):(generated y):4"
+     *	This mangles any attempt to refer to actual column numbers or file content.
+     */
+    if (set_using && df_bin_filetype >= 0)
+	int_warn(NO_CARET,
+		"combining 'using' with 'binary filetype' probably does not do what you want");
+
     /* Check for auto-generation of key title from column header  */
     if ((&keyT)->auto_titles == COLUMNHEAD_KEYTITLES) {
 	if (df_no_use_specs == 1)
