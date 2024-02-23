@@ -483,7 +483,7 @@ static int df_bin_filetype;
 static int df_bin_filetype_default;
 static df_endianess_type df_bin_file_endianess_default;
 /* Setting that is transferred to default upon reset. */
-static int df_bin_filetype_reset = -1;
+#define DF_BIN_FILETYPE_RESET -1
 #define DF_BIN_FILE_ENDIANESS_RESET THIS_COMPILER_ENDIAN
 /* This one is needed by breaders.c */
 df_endianess_type df_bin_file_endianess;
@@ -1136,6 +1136,7 @@ df_open(const char *cmd_filename, int max_using, struct curve_points *plot)
     lastpoint = lastline = MAXINT;
 
     df_binary_file = df_matrix_file = FALSE;
+    df_bin_filetype = DF_BIN_FILETYPE_RESET;
     df_pixeldata = NULL;
     df_num_bin_records = 0;
     df_matrix = FALSE;
@@ -1367,7 +1368,7 @@ df_open(const char *cmd_filename, int max_using, struct curve_points *plot)
      *	"binary filetype=png using 4" becomes "using (generated x):(generated y):4"
      *	This mangles any attempt to refer to actual column numbers or file content.
      */
-    if (set_using && df_bin_filetype >= 0)
+    if (set_using && df_bin_filetype != DF_BIN_FILETYPE_RESET)
 	int_warn(NO_CARET,
 		"combining 'using' with 'binary filetype' probably does not do what you want");
 
@@ -3332,7 +3333,7 @@ void
 df_unset_datafile_binary(void)
 {
     clear_binary_records(DF_DEFAULT_RECORDS);
-    df_bin_filetype_default = df_bin_filetype_reset;
+    df_bin_filetype_default = DF_BIN_FILETYPE_RESET;
     df_bin_file_endianess_default = DF_BIN_FILE_ENDIANESS_RESET;
 }
 
@@ -3351,7 +3352,7 @@ df_set_datafile_binary()
 	df_add_binary_records(df_num_bin_records_default, DF_CURRENT_RECORDS);
 	memcpy(df_bin_record, df_bin_record_default, df_num_bin_records*sizeof(df_binary_file_record_struct));
     } else {
-	df_bin_filetype = df_bin_filetype_reset;
+	df_bin_filetype = DF_BIN_FILETYPE_RESET;
 	df_bin_file_endianess = DF_BIN_FILE_ENDIANESS_RESET;
 	df_add_binary_records(1, DF_CURRENT_RECORDS);
     }
@@ -3465,7 +3466,7 @@ initialize_binary_vars()
 	df_add_binary_records(df_num_bin_records_default, DF_CURRENT_RECORDS);
 	memcpy(df_bin_record, df_bin_record_default, df_num_bin_records*sizeof(df_binary_file_record_struct));
     } else {
-	df_bin_filetype = df_bin_filetype_reset;
+	df_bin_filetype = DF_BIN_FILETYPE_RESET;
 	df_bin_file_endianess = DF_BIN_FILE_ENDIANESS_RESET;
 	df_add_binary_records(1, DF_CURRENT_RECORDS);
     }
