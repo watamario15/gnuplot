@@ -601,6 +601,20 @@ D epi_data 1
  for earlier versions of gnuplot to fail or to behave differently.
  There are very few such changes in version 6.
 
+3 Plot style details
+?v6_changes
+Aside from adding entirely new plot styles, version 6 also makes a few
+tweaks to existing plot styles.
+#start
+#b More terminals (png/jpeg/sixel/kitty) scale the size of a "dot" by the
+## current line width.  Some other terminals already did this.
+#b Plot styles that draw error bars place a gap at the position of the data
+## point.  The size of the gap is controlled by `set pointintervalbox`. 
+#b Multiplots can now be redrawn or rescaled (see `multiplots`).  Because of
+## this it is no longer possible to read in-line data from pseudofile '-'.
+## Use a data block instead.
+#end
+
 3 Deprecated syntax
 ?deprecated syntax
  Deprecated in version 5.4, removed in 6.0
