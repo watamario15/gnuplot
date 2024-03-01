@@ -603,8 +603,8 @@ D epi_data 1
 
 3 Plot style details
 ?v6_changes
-Aside from adding entirely new plot styles, version 6 also makes a few
-tweaks to existing plot styles.
+ Apart from adding entirely new plot styles, version 6 also makes a few
+ tweaks to existing plot styles.
 #start
 #b More terminals (png/jpeg/sixel/kitty) scale the size of a "dot" by the
 ## current line width.  Some other terminals already did this.
