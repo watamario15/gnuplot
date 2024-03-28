@@ -1,13 +1,14 @@
-		Gnuplot Version 6.0 Release Notes
-		=================================
+		Gnuplot Version 6.0.1 Release Notes
+		===================================
 
-Version 6.0 is the start of a new stable release series.
-Work on gnuplot 6 has proceeded in parallel with the incremental updates to
-version 5.4 over the past three years.  The new version introduces extensions
-to the gnuplot command language, support for new output protocols, and
-additional plotting styles.  Backward compatibility is given high priority
-in gnuplot development, so users should find no significant changes required
-for techniques or code they are currently using with gnuplot 5.
+Version 6 introduced extensions to the gnuplot command language,
+support for new output protocols, and additional plotting styles.
+Backward compatibility is given high priority in gnuplot development,
+so users should find no significant changes required for techniques or
+code that written for gnuplot version 5.
+
+Patchlevel release 6.0.1 repairs several bugs found in the initial release
+of version 6, most notably related to error handling by the wxt terminal.
 
 Gnuplot development is tracked in a git repository on SourceForge.
 You can generate a complete history of changes using "git log"
@@ -18,10 +19,29 @@ after downloading:
     git log
 </pre>
 
-Release Notes date:  08-Dec-2023
+Release Notes date:  07-Apr-2024
+
+			Changes in 6.0.1
+			================
+
+* CHANGE Use of data source '-' inside a multiplot is an error; use a local datablock instead
+* CHANGE gd: scale "dot" (pointtype 0) by current linewidth		Bug 2690
+* FIX	 empty field in csv file should not generate a tic label	Bug 2667 2672
+* FIX	 Do not autoscale or extend axis ranges while zooming		Bug 2679 2680
+* FIX	 mp: configure --with-metapost failed to include mp terminal
+* FIX	 svg: set default fill properties for depth-sorted pm3d objects
+* FIX	 x11: Empirical correction for bad rotation of enhanced text	Bug 2661
+* FIX	 wxt: Add exception handler for mouse event processing		Bug 2680 2683
+* FIX	 wxt: make right-mouse zoom box independent of terminal scaling	Bug 2578
+* FIX	 regression: border color of objects with fillstyle "empty"	Bug 2686
+* FIX	 "set colorbox border {<lt>}" parsing error
+* FIX	 gd/x11 very short arrows were not drawn at all			Bug 2690
+* FIX	 "stats ... name FOO" Do not delete existing variables FOO_*	Bug 2695
+* FIX	 order-dependent parsing of 2D plots with "fs solid fc variable"
 
 		Features introduced in version 6
 		================================
+
 For a detailed list of new features, with illustrations, see
   http://gnuplot.info/docs_6.0/NewFeatures.html
 
@@ -102,6 +122,9 @@ For more example plots see
 	o Multiplots can now be saved, replotted, and resized interactively.
 	  This is a change from all previous gnuplot versions, where only the
 	  most recent component of a multiplot could be replotted.
+	o The command sequence that generates the current multiplot is saved to
+	  a datablock $GPVAL_LAST_MULTIPLOT.
+	o New command "remultiplot" replays the saved command sequence. 
 	o Time unit settings for major and minor axis tics.  For example,
 	  minor tic marks can be placed at exactly one month intervals.
 	o The character sequence $# in a using specifier evaluates to the total
@@ -117,54 +140,8 @@ For more example plots see
 	  that x, y, and z axes all have the same scale.
 	o Text rotation angles are not limited to integral degree values.
 	o Data-driven color assignments in plot style "histograms".
-
-
-		Changes between 6.0 -rc1 and -rc2
-		=================================
-* New plot style "with contourfill" generates 2D and 3D contour plots with
-  solid fill areas rather than lines.
-* Support building against Qt6
-	- ./configure falls back to Qt5 if the Qt6 libraries are not found
-* Japanese documentation updated
-	- added missing file title-ja.tex, build dependencies for mingw
-* New configure option --enable-stable-sort
-	- Use mergesort rather than qsort if the system provides it.
-	- If neither mergesort nor glibc stable qsort is available,
-	  modify internal gnuplot structures to contain a secondary sort key
-* Render color gradient in colorbox as a pixel array
-	- cairo, qt terminals
-* "reset session" restores initial state of all linetype properties
-	- previously only the colors were restored
-	- now it also reinitializes linewidth, point and dash properties
-* postscript terminal now handles pixmaps
-* svg terminal now correctly tracks pattern-fill color
-
-		Changes between 6.0-rc2 and -rc3
-		================================
-
-- Replotting and mousing multiplots
-	o new commands "remultiplot"
-	O new command "set mouse multiplot"  (NB: reverted in 6.0)
-	o command sequence to regenerate full multiplot is saved to a datablock
-- Additional keyentry options to construct custom keys
-	o keyentry "text" can be used to place a secondary title in the key
-- Minor fixes
-	o correct build of postscript terminal when libgd and cairo are not present
-	o strip trailing CR from function blocks read from a dos file
-	o use 64-bit integers for iteration
-	o "unset pointintervalbox" disables the box rather than setting it to default size
-	o setting minitic scale to 0 does not disable the corresponding grid lines
-	o use of stacked histograms with variable number of data columns
-
-		Changes between 6.0-rc3 and full release 6.0
-		============================================
-
-- Replotting and mousing multiplots
-	o now working much more comprehensively
-	o revert "set mouse multiplot" as a separate command; it's now always in effect
-- "plot with polygons" now guarantees that the border of each polygon is a closed curve
-- pdf output from the cairo terminals now conforms to %PDF-1.5
-
+	o A keyentry with no given plot style can be used to place a secondary title
+	  in the key or, in combintation with "title", to create two columns of text.
 
 		Notes for packagers and testers
 		===============================
@@ -265,7 +242,7 @@ file of the source package; the short version for linux/unix-like
 systems is to unpack the tarball and then
 <PRE>
 build it:
-      cd gnuplot-6.0.0 ; ./configure ; make
+      cd gnuplot-6.0.1 ; ./configure ; make
 test it:
       make check
 install it:
@@ -288,6 +265,5 @@ Development
 -----------
 Gnuplot development is ongoing. The development branch contains preliminary
 implementations of new features.  The current development version is 6.1.
-Once version 6.0 is released, bugfixes will appear in patchlevel releases
-6.0.1, 6.0.2, etc., approximately twice a year or as needed to correct a
-serious regression.
+Bug fixes for version 6.0 will appear in patchlevel releases 6.0.1, 6.0.2, etc.
+approximately twice a year or as needed to correct a serious regression.

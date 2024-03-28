@@ -538,6 +538,11 @@ D epi_data 1
 #b The position of the key box can be manually tweaked by specifying an
 ## offset to be added to whatever position the program would otherwise use.
 ## See `set key offset`.
+#b A keyentry with text but no plot style can be used to generate a secondary
+## title in the key spanning the entire width of the key.  For example
+##     `plot A, keyentry "left-justified text" left, B`
+## This can also be used to create a key with two columns of text by
+## providing both a text string and a title. See `keyentry`.
 #end
 
 3 Brief summary of features introduced in version 5
