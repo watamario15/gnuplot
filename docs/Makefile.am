@@ -90,7 +90,7 @@ DOCHEADERS = doc2x.h xref.h
 EXTRA_DIST = Makefile.in doc2texi.el gnuplot.doc \
 titlepag.ipf titlepag.tex title-ja.tex \
 toc_entr.sty psdoc gnuplot-ja.doc README.ja \
-term-ja.diff plotstyles.gnu gnuplot.pdf \
+term-ja.diff plotstyles.gnu gnuplot.pdf webp_figure.gnu \
 windows/wgnuplot.hhk windows/wgnuplot.hhp windows/wgnuplot.stp windows/doc2html.c \
 html/gnuplot_docs.css
 
