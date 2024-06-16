@@ -5,13 +5,13 @@
   <img src="graph.png" width="45%" />
 </p>
 
-This is a _Windows CE only partial_ port of Gnuplot 4.4.3. This port is as destructive as dropping the support for environments other than Windows Mobile 5.0 Pocket PC SDK on Visual Studio 2005/2008, and implementing only basic features. This is a slight update incorporating some fixes and small improvements to the [Rev. 1](https://kawamoto.no-ip.org/henteko/myapp/gplotwce4431.zip) made by [Suguru Kawamoto](https://github.com/skawamoto0).
+This is a _Windows CE only partial_ port of Gnuplot 4.4.3. This port is as destructive as dropping the support for environments other than Windows CE SDK on Visual Studio 2005/2008, and implementing only basic features. This is a slight update incorporating some fixes and small improvements to the [Rev. 1](https://kawamoto.no-ip.org/henteko/myapp/gplotwce4431.zip) made by [Suguru Kawamoto](https://github.com/skawamoto0).
 
 ## How To Use
 
 Download from [Releases](../../releases), extract it into a ASCII-only path (the top folder is recommended), and run `wgnuplot.exe` on your device. Notable things about this port follows:
 
-- Devices with Windows CE 5.0 or later OS and Armv5 CPU are supported
+- Devices with Windows Embedded CE 6.0 OS and Armv4I CPU are supported
 - Default font for the console screen is `MS Gothic`
 - On console and graph screens, you can change the font from the right-click menu
   - Use `app` key on a screen keyboard app on devices where right-clicking is not possible
@@ -38,7 +38,7 @@ Following features which were not available in Rev. 1, are still not supported:
 
 ## How To Build
 
-Use the `.sln` file located in `vs2005`/`vs2008` on Visual Studio 2005/2008. "Smart Device Programability" and [Windows Mobile 5.0 Pocket PC SDK](https://www.microsoft.com/en-us/download/details.aspx?id=42) must be installed to build this project. Also, you must specify a `commdlg.lib` file which comes with a Windows CE SDK (Windows CE 5.0 recommended, which is available from [Microsoft](https://www.microsoft.com/en-us/download/details.aspx?id=17310) and [Toradex](https://docs.toradex.com/102479)) at "Linker > Input > Additional Dependencies" in the Project Properties dialog. This file is usually present in `Lib\ARMV4I` in the SDK.
+Use the `.sln` file located in `vs2005`/`vs2008` on Visual Studio 2005/2008. "Smart Device Programability" and [Toradex CE6 SDK](https://docs.toradex.com/102480) must be installed to build this project.
 
 ## License
 
@@ -55,13 +55,13 @@ My contact information can be obtained by invoking the `git log` command within 
   <img src="graph-ja.png" width="45%" />
 </p>
 
-これは **Windows CE 専用で部分的な** Gnuplot 4.4.3 の移植版です。破壊的な移植なので、Visual Studio 2005/2008 上の Windows Mobile 5.0 Pocket PC SDK のみに対応し、実装されている機能も最低限です。[川本優](https://github.com/skawamoto0)氏の [Rev. 1](https://kawamoto.no-ip.org/henteko/myapp/gplotwce4431.zip) に対し、修正や少しの改良を施した版となります。
+これは **Windows CE 専用で部分的な** Gnuplot 4.4.3 の移植版です。破壊的な移植なので、Visual Studio 2005/2008 上の Windows CE SDK のみに対応し、実装されている機能も最低限です。[川本優](https://github.com/skawamoto0)氏の [Rev. 1](https://kawamoto.no-ip.org/henteko/myapp/gplotwce4431.zip) に対し、修正や少しの改良を施した版となります。
 
 ## 実行方法
 
 [Releases](../../releases) からダウンロード・展開し、日本語などの非 ASCII 文字を含まない場所（最上層を推奨）に配置します。その後、`wgnuplot.exe` を直接起動します。日本語を含むパスに配置できない制約から `アプリ` フォルダに配置できないので、辞書アプリからの起動には対応しません。Explorer や ceOpener などを用いてください。この移植版には以下の性質があります。
 
-- Armv5 CPU を搭載する Windows CE 5.0 以降の端末で動作します
+- Armv4I CPU を搭載する Windows Embedded CE 6.0 以降の端末で動作します
 - コンソール画面のデフォルトフォントは `MS Gothic` です
 - コンソール画面とグラフ画面において、右クリックメニューからフォント変更が可能です
   - 右クリックできない環境では Screen Keyboard の `app` キーなどを用います
@@ -89,7 +89,7 @@ Rev. 1 が対応しない以下の機能は、この版でも使用できませ�
 
 ## ビルド方法
 
-Visual Studio 2005/2008 を用いて `vs2005`/`vs2008` フォルダ内の `.sln` ファイルを開き、ビルドします。「スマート デバイス プログラマビリティ」と [Windows Mobile 5.0 Pocket PC SDK](https://www.microsoft.com/en-us/download/details.aspx?id=42) が必須です。さらに、プロジェクトプロパティの「リンカ > 入力 > 追加の依存ファイル」にて通常の Windows CE SDK（[Microsoft](https://www.microsoft.com/en-us/download/details.aspx?id=17310) や [Toradex](https://docs.toradex.com/102479) から入手できる Windows CE 5.0 用のものを推奨）に含まれる `commdlg.lib` を指定する必要があります。このファイルは大抵 SDK 内の `Lib\ARMV4I` にあります。
+Visual Studio 2005/2008 を用いて `vs2005`/`vs2008` フォルダ内の `.sln` ファイルを開き、ビルドします。「スマート デバイス プログラマビリティ」と [Toradex CE6 SDK](https://docs.toradex.com/102480) が必須です。
 
 ## ライセンス
 

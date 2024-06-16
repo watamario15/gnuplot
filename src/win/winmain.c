@@ -277,7 +277,7 @@ int main(int argc, char **argv)
 	int nCmdShow = 0;
 #else
 #ifdef __MSC__  /* MSC doesn't give us _argc and _argv[] so ...   */
-# ifdef WIN32    /* WIN32 has __argc and __argv */
+# if defined WIN32 && !defined UNDER_CE   /* WIN32 has __argc and __argv, but WinCE not */
 #  define _argv __argv
 #  define _argc __argc
 # else
